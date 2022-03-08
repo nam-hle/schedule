@@ -1,7 +1,7 @@
-export interface Chromosome {
+export interface Individual {
   fitness(): number;
-  mutate(): Chromosome;
-  crossover(other: Chromosome): Chromosome;
+  mutate(): Individual;
+  crossover(other: Individual): [Individual, Individual];
 }
 
 /**
@@ -16,10 +16,10 @@ export interface GeneticAlgorithmConfig {
 }
 
 export class GeneticAlgorithm {
-  private population: Chromosome[];
+  private population: Individual[];
   private readonly config: GeneticAlgorithmConfig;
 
-  constructor(initialPopulation: Chromosome[], config: GeneticAlgorithmConfig) {
+  constructor(initialPopulation: Individual[], config: GeneticAlgorithmConfig) {
     this.population = initialPopulation;
     this.config = config;
   }
@@ -27,7 +27,7 @@ export class GeneticAlgorithm {
   /**
    * Select a random chromosome based on its fitness.
    */
-  private select(): Chromosome {
+  private select(): Individual {
     const totalFitness = this.population.reduce((s, c) => s + c.fitness(), 0);
     const randomFitness = Math.random() * totalFitness;
     let fitness = 0;
@@ -43,15 +43,9 @@ export class GeneticAlgorithm {
   /**
    * Apply crossover to a pair of chromosomes.
    */
-  private crossover(
-    chromosome1: Chromosome,
-    chromosome2: Chromosome
-  ): Chromosome[] {
+  private crossover(chromosome1: Individual, chromosome2: Individual): [Individual, Individual] {
     if (Math.random() < this.config.crossoverRate) {
-      return [
-        chromosome1.crossover(chromosome2),
-        chromosome2.crossover(chromosome1),
-      ];
+      return chromosome1.crossover(chromosome2);
     }
     return [chromosome1, chromosome2];
   }
@@ -59,7 +53,7 @@ export class GeneticAlgorithm {
   /**
    * Apply mutation to a chromosome
    */
-  private mutate(chromosome: Chromosome): Chromosome {
+  private mutate(chromosome: Individual): Individual {
     if (Math.random() < this.config.mutationRate) {
       return chromosome.mutate();
     }
@@ -69,13 +63,13 @@ export class GeneticAlgorithm {
   /**
    * Main function of the algorithm.
    * While iteration is smaller than maxIterations,
-   * perform crossover two each pair of current population,
+   * perform crossover two each selected pair of current population,
    * mutate each of them, and add them to the next population.
    */
-  public run(): Chromosome[] {
+  public run(): Individual[] {
     let iteration = 0;
     while (iteration < this.config.maxIterations) {
-      const nextPopulation: Chromosome[] = [];
+      const nextPopulation: Individual[] = [];
       for (let i = 0; i < this.config.populationSize; i++) {
         const chromosome1 = this.select();
         const chromosome2 = this.select();
