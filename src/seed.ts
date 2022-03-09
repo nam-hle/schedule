@@ -1,10 +1,7 @@
 import { Chance } from "chance";
 
+import { EmployeeInfo, Position, RegisteredEmployee, Registration, Shift, Time, Date, Location } from "./entities";
 import { Random } from "./random";
-import { EmployeeInfo, RegisteredEmployee, Registration } from "./types";
-import { LOCATION_VALUES, LocationDemand, LocationInfo } from "./types/location";
-import { POSITION_VALUES } from "./types/position";
-import { DATE_VALUES, SHIFT_VALUES, Time } from "./types/time";
 
 const chance = new Chance();
 
@@ -17,18 +14,18 @@ export function generateEmployeeInfo(): EmployeeInfo {
     id: generateId(),
     name: chance.name(),
     level: Random.getInt(5),
-    availablePositions: Random.getArrayItems(POSITION_VALUES, Random.getInt(3)),
+    availablePositions: Random.getArrayItems(Position.VALUES, Random.getInt(3)),
   };
 }
 
 export function generateTime(): Time {
-  return new Time(Random.getArrayItem(DATE_VALUES), Random.getArrayItem(SHIFT_VALUES));
+  return new Time(Random.getArrayItem(Date.VALUES), Random.getArrayItem(Shift.VALUES));
 }
 
 export function generateRegistration(): Registration {
   return {
     time: generateTime(),
-    preferredLocation: Random.getArrayItems(LOCATION_VALUES, Random.getInt(3)),
+    preferredLocation: Random.getArrayItems(Location.VALUES, Random.getInt(3)),
   };
 }
 
@@ -39,15 +36,15 @@ export function generateRegisteredEmployee(): RegisteredEmployee {
   return new RegisteredEmployee(employeeInfo, registrations);
 }
 
-export function generateLocationInfo(): LocationInfo {
-  const demands: LocationDemand[] = [];
-  for (const shift of SHIFT_VALUES) {
-    for (const position of POSITION_VALUES) {
+export function generateLocationInfo(): Location {
+  const demands: Location.Demand[] = [];
+  for (const shift of Shift.VALUES) {
+    for (const position of Position.VALUES) {
       demands.push({ shift, position, quantity: Random.getInt(3) });
     }
   }
   return {
-    kind: Random.getArrayItem(LOCATION_VALUES),
+    kind: Random.getArrayItem(Location.VALUES),
     demands,
   };
 }

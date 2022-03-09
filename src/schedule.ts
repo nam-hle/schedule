@@ -1,11 +1,7 @@
-import { RegisteredEmployee } from "./types";
-import { LocationInfo } from "./types/location";
-import { POSITION_VALUES, PositionKind } from "./types/position";
-import { Time, TIME_VALUES } from "./types/time";
-import { TimePosition } from "./types/time-position";
+import { Location, Position, RegisteredEmployee, Time, TimePosition } from "./entities";
 
 export type LocationRegistration = {
-  [position: string]: Record<PositionKind, string[]>;
+  [position: string]: Record<Position.Kind, string[]>;
 };
 
 export class Schedule {
@@ -16,14 +12,14 @@ export class Schedule {
   private timeAvailability: Map<Time, RegisteredEmployee[]>;
   private timePositionAvailability: Map<string, RegisteredEmployee[]>;
 
-  constructor(private registeredEmployees: RegisteredEmployee[], private locationInfos: LocationInfo[]) {
+  constructor(private registeredEmployees: RegisteredEmployee[], private locationInfos: Location[]) {
     this.timeAvailability = this.calculateTimeAvailability();
     this.timePositionAvailability = this.calculateTimePositionAvailability();
   }
 
   private calculateTimeAvailability(): Map<Time, RegisteredEmployee[]> {
     const res = new Map<Time, RegisteredEmployee[]>();
-    for (const time of TIME_VALUES) {
+    for (const time of Time.VALUES) {
       const employees = this.registeredEmployees.filter(employee => employee.isAvailable({ time }));
       res.set(time, employees);
     }
@@ -32,8 +28,8 @@ export class Schedule {
 
   private calculateTimePositionAvailability(): Map<string, RegisteredEmployee[]> {
     const res = new Map<string, RegisteredEmployee[]>();
-    for (const time of TIME_VALUES) {
-      for (const position of POSITION_VALUES) {
+    for (const time of Time.VALUES) {
+      for (const position of Position.VALUES) {
         const employees = this.registeredEmployees.filter(employee => employee.isAvailable({ time, position }));
         res.set(TimePosition.toString(time, position), employees);
       }

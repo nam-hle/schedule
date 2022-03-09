@@ -1,31 +1,23 @@
-import { LocationKind } from "./location";
-import { PositionKind } from "./position";
+import { Location } from "./location";
+import { Position } from "./position";
 import { Time } from "./time";
 
 export interface EmployeeInfo {
   readonly id: string;
   readonly name: string;
   readonly level: number;
-  readonly availablePositions: PositionKind[];
+  readonly availablePositions: Position.Kind[];
 }
 
 export interface Registration {
   readonly time: Time;
-  readonly preferredLocation: LocationKind[];
+  readonly preferredLocation: Location.Kind[];
 }
 
 export class RegisteredEmployee {
   constructor(private info: EmployeeInfo, private registrations: Registration[]) {}
 
-  private isAvailableAtTime(time: Time): boolean {
-    return this.registrations.some(r => r.time.isEqual(time));
-  }
-
-  private isAvailableAtPosition(position: PositionKind): boolean {
-    return this.info.availablePositions.includes(position);
-  }
-
-  public isAvailable(params: { time: Time; position?: PositionKind }): boolean {
+  public isAvailable(params: { time: Time; position?: Position.Kind }): boolean {
     const { time, position } = params;
     return this.isAvailableAtTime(time) && (!position || this.isAvailableAtPosition(position));
   }
@@ -37,5 +29,13 @@ Name: ${this.info.name}
 Level: ${this.info.level}
 Available Positions: ${this.info.availablePositions.join(", ")}
 Registrations: \n${this.registrations.map(r => `\t - ${r.time} at ${r.preferredLocation.join(", ")}`).join("\n")}`);
+  }
+
+  private isAvailableAtTime(time: Time): boolean {
+    return this.registrations.some(r => r.time.isEqual(time));
+  }
+
+  private isAvailableAtPosition(position: Position.Kind): boolean {
+    return this.info.availablePositions.includes(position);
   }
 }
