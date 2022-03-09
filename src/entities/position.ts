@@ -1,3 +1,5 @@
+import { Random } from "../random";
+
 export type Position = Position.Kind;
 
 export namespace Position {
@@ -18,5 +20,9 @@ export namespace Position {
     }
 
     throw new Error(`Invalid position: ${str}`);
+  }
+
+  export function seed(): Kind {
+    return Random.item(VALUES);
   }
 }

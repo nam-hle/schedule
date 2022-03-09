@@ -1,4 +1,4 @@
-export * from "./date";
+export * from "./day";
 export * from "./employee";
 export * from "./location";
 export * from "./position";

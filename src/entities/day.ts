@@ -1,6 +1,8 @@
-export type Date = Date.Kind;
+import { Random } from "../random";
 
-export namespace Date {
+export type Day = Day.Kind;
+
+export namespace Day {
   export enum Kind {
     MON = "MON",
     TUE = "TUE",
@@ -24,5 +26,9 @@ export namespace Date {
     }
 
     throw new Error(`Invalid date: ${str}`);
+  }
+
+  export function seed(): Kind {
+    return Random.item(VALUES);
   }
 }

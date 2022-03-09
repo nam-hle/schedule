@@ -1,3 +1,5 @@
+import { Random } from "../random";
+
 export type Shift = Shift.Kind;
 
 export namespace Shift {
@@ -21,5 +23,9 @@ export namespace Shift {
     if (shift) return shift;
 
     throw new Error(`Invalid shift: ${str}`);
+  }
+
+  export function seed(): Kind {
+    return Random.item(VALUES);
   }
 }

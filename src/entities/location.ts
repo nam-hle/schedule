@@ -1,34 +1,19 @@
-import { Position } from "./position";
-import { Shift } from "./shift";
+import { Demand } from "./demand";
 
-export interface Location {
-  readonly kind: Location.Kind;
-  readonly demands: Location.Demand[];
+enum Kind {
+  CTVT = "CTVT",
+  LHP = "LHP",
+  PCT = "PCT",
 }
 
-export namespace Location {
-  export enum Kind {
-    CTVT = "CTVT",
-    LHP = "LHP",
-    PCT = "PCT",
-  }
+export class Location {
+  static Kind = Kind;
+  static VALUES = Object.values(Kind);
+  static SIZE = Location.VALUES.length;
 
-  export const VALUES = Object.values(Kind);
-  export const SIZE = VALUES.length;
+  constructor(public kind: Kind, public demands: Demand[] = []) {}
 
-  export function toString(location: Location): string {
-    return `${location.kind}(${location.demands.map(Demand.toString).join(", ")})`;
-  }
-
-  export interface Demand {
-    readonly shift: Shift;
-    readonly position: Position;
-    readonly quantity: number;
-  }
-
-  export namespace Demand {
-    export function toString(demand: Demand): string {
-      return `${demand.shift} ${demand.position} ${demand.quantity}`;
-    }
+  toString(): string {
+    return `${this.kind}(${this.demands.map(Demand.toString).join(", ")})`;
   }
 }
