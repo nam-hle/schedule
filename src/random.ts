@@ -1,6 +1,7 @@
 import { Chance } from "chance";
 
 const chance = new Chance();
+
 export namespace Random {
   export function float(max: number): number;
   export function float(min: number, max: number): number;
@@ -22,12 +23,14 @@ export namespace Random {
     return array[int(0, array.length - 1)];
   }
 
-  export function items<T>(array: T[], count: number): T[] {
-    const result: T[] = [];
-    for (let i = 0; i < count; i++) {
-      result.push(item(array));
+  export function uniqueItems<T>(array: T[], count: number): T[] {
+    const copied = [...array];
+    for (let i = 0; i < array.length; i++) {
+      const j = int(0, copied.length - 1);
+      [copied[i], copied[j]] = [copied[j], copied[i]];
     }
-    return result;
+
+    return copied.slice(0, count);
   }
 
   export function name(): string {

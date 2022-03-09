@@ -1,17 +1,16 @@
 import { Demand } from "./demand";
 
-enum Kind {
+export enum LocationKind {
   CTVT = "CTVT",
   LHP = "LHP",
   PCT = "PCT",
 }
 
 export class Location {
-  static Kind = Kind;
-  static VALUES = Object.values(Kind);
+  static VALUES = Object.values(LocationKind);
   static SIZE = Location.VALUES.length;
 
-  constructor(public kind: Kind, public demands: Demand[] = []) {}
+  constructor(public kind: LocationKind, public demands: Demand[] = []) {}
 
   toString(): string {
     return `${this.kind}(${this.demands.map(Demand.toString).join(", ")})`;

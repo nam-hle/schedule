@@ -1,7 +1,9 @@
-import { Random } from "../random";
-import { generateId } from "../seed";
+import { table } from "table";
+import { getBorderCharacters } from "table/dist/src/getBorderCharacters";
 
-import { Location } from "./location";
+import { Random } from "../random";
+
+import { Location, LocationKind } from "./location";
 import { Position } from "./position";
 import { Time } from "./time";
 
@@ -14,10 +16,10 @@ export interface EmployeeInfo {
 
 export interface Registration {
   readonly time: Time;
-  readonly preferredLocations: Location[];
+  readonly preferredLocations: LocationKind[];
 }
 
-export class RegisteredEmployee {
+export class Employee {
   private readonly registrations: Registration[] = [];
   constructor(private info: EmployeeInfo) {}
 
@@ -31,12 +33,18 @@ export class RegisteredEmployee {
   }
 
   public print(): void {
-    console.log(`
-Id: ${this.info.id}
-Name: ${this.info.name}
-Level: ${this.info.level}
-Available Positions: ${this.info.positions.join(", ")}
-Registrations: \n${this.registrations.map(r => `\t - ${r.time} at ${r.preferredLocations.join(", ")}`).join("\n")}`);
+    console.log(
+      table(
+        [
+          ["Id", this.info.id],
+          ["Name", this.info.name],
+          ["Level", this.info.level],
+          ["Positions", this.info.positions.join(", ")],
+          ["Registrations", this.registrations.map(r => `${r.time} ${r.preferredLocations.join(", ")}`).join("\n")],
+        ],
+        { border: getBorderCharacters("norc") }
+      )
+    );
   }
 
   private isAvailableAtTime(time: Time): boolean {
@@ -47,18 +55,21 @@ Registrations: \n${this.registrations.map(r => `\t - ${r.time} at ${r.preferredL
     return this.info.positions.includes(position);
   }
 
-  static seed(): RegisteredEmployee {
-    const employee = new RegisteredEmployee({
-      id: generateId(),
+  static seed(): Employee {
+    const employee = new Employee({
+      id: Random.id(),
       name: Random.name(),
       level: Random.int(5),
-      positions: Random.items(Position.VALUES, Random.int(3)),
+      positions: Random.uniqueItems(Position.VALUES, Random.int(1, 3)),
     });
-    for (let i = 0; i < Random.int(5); i++) {
+
+    for (let i = 0; i < Random.int(3, 7); i++) {
       employee.register({
         time: Time.seed(),
-        preferredLocations: Random.items(Location.VALUES, Random.int(3)),
+        preferredLocations: Random.uniqueItems(Location.VALUES, Random.int(3)),
       });
     }
+
+    return employee;
   }
 }
