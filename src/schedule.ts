@@ -1,4 +1,5 @@
 import { Location, Position, Employee, Time, TimePosition } from "./entities";
+import { Random } from "./random";
 
 export type LocationRegistration = {
   [position: string]: Record<Position.Kind, string[]>;
@@ -9,31 +10,46 @@ export class Schedule {
     [time: string]: LocationRegistration;
   } = {};
 
-  private timeAvailability: Map<Time, Employee[]>;
-  private timePositionAvailability: Map<string, Employee[]>;
+  constructor(private registeredEmployees: Employee[], private locationInfos: Location[]) {}
 
-  constructor(private registeredEmployees: Employee[], private locationInfos: Location[]) {
-    this.timeAvailability = this.calculateTimeAvailability();
-    this.timePositionAvailability = this.calculateTimePositionAvailability();
-  }
-
-  private calculateTimeAvailability(): Map<Time, Employee[]> {
-    const res = new Map<Time, Employee[]>();
-    for (const time of Time.VALUES) {
-      const employees = this.registeredEmployees.filter(employee => employee.isAvailable({ time }));
-      res.set(time, employees);
-    }
-    return res;
-  }
-
-  private calculateTimePositionAvailability(): Map<string, Employee[]> {
-    const res = new Map<string, Employee[]>();
+  private sortTimePositionByAvailability(): TimePosition[] {
+    const timePositionAvailability: [TimePosition, number][] = [];
     for (const time of Time.VALUES) {
       for (const position of Position.VALUES) {
-        const employees = this.registeredEmployees.filter(employee => employee.isAvailable({ time, position }));
-        res.set(TimePosition.toString(time, position), employees);
+        const timePosition: TimePosition = { time, position };
+        const availability = this.registeredEmployees.filter(employee => employee.isAvailable(timePosition)).length;
+        if (availability === 0) {
+          continue;
+        }
+        timePositionAvailability.push([timePosition, availability]);
       }
     }
-    return res;
+
+    return timePositionAvailability.sort((a, b) => a[1] - b[1]).map(x => x[0]);
+  }
+
+  main() {
+    const timePositions = this.sortTimePositionByAvailability();
+    for (const timePosition of timePositions) {
+      const employees = this.registeredEmployees.filter(employee => employee.isAvailable(timePosition));
+      const locations = this.locationInfos.filter(location => location.getRemainDemand(timePosition));
+      if (employees.length === 0 || locations.length === 0) {
+        continue;
+      }
+
+      const employee = Random.item(employees);
+      const location = Random.item(locations);
+      Schedule.link(location, employee, timePosition);
+    }
+  }
+
+  static link(location: Location, employee: Employee, timePosition: TimePosition): void {
+    location.link(employee, timePosition);
+    employee.link(location, timePosition);
+  }
+
+  static unlink(location: Location, employee: Employee, timePosition: TimePosition): void {
+    location.unlink(employee, timePosition);
+    employee.unlink(timePosition);
   }
 }

@@ -66,7 +66,7 @@ export class GeneticAlgorithm {
    * perform crossover two each selected pair of current population,
    * mutate each of them, and add them to the next population.
    */
-  public run(): Individual[] {
+  run(): Individual[] {
     let iteration = 0;
     while (iteration < this.config.maxIterations) {
       const nextPopulation: Individual[] = [];

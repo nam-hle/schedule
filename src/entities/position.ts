@@ -13,6 +13,10 @@ export namespace Position {
   export const VALUES = Object.values(Kind);
   export const SIZE = VALUES.length;
 
+  export function isEqual(a: Position, b: Position): boolean {
+    return a === b;
+  }
+
   export function fromString(str: string): Kind {
     const position = VALUES.find(value => value === str);
     if (position) {

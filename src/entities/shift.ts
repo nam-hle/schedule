@@ -14,6 +14,10 @@ export namespace Shift {
   export const VALUES = Object.values(Kind);
   export const SIZE = VALUES.length;
 
+  export function isEqual(a: Shift, b: Shift): boolean {
+    return a === b;
+  }
+
   export function compare(shift1: Kind, shift2: Kind): number {
     return VALUES.indexOf(shift1) - VALUES.indexOf(shift2);
   }

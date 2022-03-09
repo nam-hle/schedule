@@ -6,6 +6,7 @@ import { Random } from "../random";
 import { Location, LocationKind } from "./location";
 import { Position } from "./position";
 import { Time } from "./time";
+import { TimePosition } from "./time-position";
 
 export interface EmployeeInfo {
   readonly id: string;
@@ -19,20 +20,55 @@ export interface Registration {
   readonly preferredLocations: LocationKind[];
 }
 
+export interface LocationAssignment extends TimePosition {
+  readonly location: Location;
+}
+
+export namespace LocationAssignment {
+  export function isMatched(assignment: LocationAssignment, timePosition: TimePosition): boolean {
+    return TimePosition.isEqual(assignment, timePosition);
+  }
+}
+
 export class Employee {
   private readonly registrations: Registration[] = [];
+  private readonly assignments: LocationAssignment[] = [];
+
   constructor(private info: EmployeeInfo) {}
 
-  public register(registration: Registration): void {
+  isEqual(other: Employee): boolean {
+    return this.info.id === other.info.id;
+  }
+
+  link(location: Location, timePosition: TimePosition): void {
+    const assignment = this.assignments.find(a => LocationAssignment.isMatched(a, timePosition));
+    if (assignment) {
+      throw new Error("Assignment already exists");
+    }
+
+    this.assignments.push({ ...timePosition, location });
+  }
+
+  unlink(timePosition: TimePosition): void {
+    const index = this.assignments.findIndex(a => LocationAssignment.isMatched(a, timePosition));
+    if (index === -1) {
+      throw new Error("Assignment not found");
+    }
+
+    this.assignments.splice(index, 1);
+  }
+
+  register(registration: Registration): void {
     this.registrations.push(registration);
   }
 
-  public isAvailable(params: { time: Time; position?: Position }): boolean {
-    const { time, position } = params;
-    return this.isAvailableAtTime(time) && (!position || this.isAvailableAtPosition(position));
+  isAvailable(timePosition: TimePosition): boolean {
+    const { time, position } = timePosition;
+
+    return this.isAvailableAtTime(time) && this.isAvailableAtPosition(position);
   }
 
-  public print(): void {
+  print(): void {
     console.log(
       table(
         [
