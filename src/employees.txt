@@ -1,0 +1,764 @@
+[
+  {
+    "id": "RAH",
+    "name": "Amy Green",
+    "level": 2,
+    "positions": [
+      "cashier",
+      "bartender"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3QS",
+    "name": "Henrietta Paul",
+    "level": 3,
+    "positions": [
+      "waiter",
+      "keeper"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "CO6",
+    "name": "Arthur Munoz",
+    "level": 3,
+    "positions": [
+      "keeper",
+      "waiter"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "WGV",
+    "name": "Seth Brooks",
+    "level": 2,
+    "positions": [
+      "waiter"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "PCT",
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "VRL",
+    "name": "Barry Frank",
+    "level": 4,
+    "positions": [
+      "waiter"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "CTVT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "08A",
+    "name": "Alma Santos",
+    "level": 2,
+    "positions": [
+      "cashier",
+      "bartender"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Y1D",
+    "name": "Claudia Berry",
+    "level": 3,
+    "positions": [
+      "manager",
+      "cashier"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "Z44",
+    "name": "Georgia Dawson",
+    "level": 1,
+    "positions": [
+      "keeper",
+      "waiter"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "MON",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "FRI",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "0GL",
+    "name": "Nina Gibbs",
+    "level": 3,
+    "positions": [
+      "keeper"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "WED",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "THU",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "CTVT",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "E0"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "DSM",
+    "name": "Nannie Carlson",
+    "level": 1,
+    "positions": [
+      "waiter",
+      "keeper"
+    ],
+    "registrations": [
+      {
+        "time": {
+          "date": "MON",
+          "shift": "M1"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "MON",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "MON",
+          "shift": "A0"
+        },
+        "preferredLocations": [
+          "LHP",
+          "PCT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "TUE",
+          "shift": "M2"
+        },
+        "preferredLocations": [
+          "PCT",
+          "LHP"
+        ]
+      },
+      {
+        "time": {
+          "date": "SAT",
+          "shift": "M0"
+        },
+        "preferredLocations": [
+          "CTVT"
+        ]
+      },
+      {
+        "time": {
+          "date": "SUN",
+          "shift": "A1"
+        },
+        "preferredLocations": [
+          "LHP"
+        ]
+      }
+    ]
+  }
+]

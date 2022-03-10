@@ -58,8 +58,8 @@ export class Employee {
     this.assignments.splice(index, 1);
   }
 
-  register(registration: Registration): void {
-    this.registrations.push(registration);
+  register(...registrations: Registration[]): void {
+    this.registrations.push(...registrations);
   }
 
   isAvailable(timePosition: TimePosition): boolean {
@@ -68,19 +68,40 @@ export class Employee {
     return this.isAvailableAtTime(time) && this.isAvailableAtPosition(position);
   }
 
-  print(): void {
-    console.log(
-      table(
-        [
-          ["Id", this.info.id],
-          ["Name", this.info.name],
-          ["Level", this.info.level],
-          ["Positions", this.info.positions.join(", ")],
-          ["Registrations", this.registrations.map(r => `${r.time} ${r.preferredLocations.join(", ")}`).join("\n")],
-        ],
-        { border: getBorderCharacters("norc") }
-      )
-    );
+  toString(): string {
+    const info = [
+      ["Id", this.info.id],
+      ["Name", this.info.name],
+      ["Level", this.info.level],
+      ["Positions", this.info.positions.join(", ")],
+    ]
+      .map(([key, value]) => `${(key as string).padEnd(10, " ")}: ${value}`)
+      .join("\n");
+    const registrations = this.registrations.map(r => `${r.time} ${r.preferredLocations.join(", ")}`).join("\n");
+    return table([[info, registrations]], { border: getBorderCharacters("norc") });
+  }
+
+  toJSON(): SerializedEmployee {
+    return {
+      id: this.info.id,
+      name: this.info.name,
+      level: this.info.level,
+      positions: this.info.positions,
+      registrations: this.registrations,
+    };
+  }
+
+  static fromJSON(serialized: SerializedEmployee): Employee {
+    const employee = new Employee({
+      id: serialized.id,
+      name: serialized.name,
+      level: serialized.level,
+      positions: serialized.positions,
+    });
+
+    employee.register(...serialized.registrations);
+
+    return employee;
   }
 
   private isAvailableAtTime(time: Time): boolean {
@@ -95,17 +116,27 @@ export class Employee {
     const employee = new Employee({
       id: Random.id(),
       name: Random.name(),
-      level: Random.int(5),
+      level: Random.int(1, 5),
       positions: Random.uniqueItems(Position.VALUES, Random.int(1, 3)),
     });
 
-    for (let i = 0; i < Random.int(3, 7); i++) {
-      employee.register({
-        time: Time.seed(),
-        preferredLocations: Random.uniqueItems(Location.VALUES, Random.int(3)),
-      });
-    }
+    Random.uniqueItems(Time.VALUES, Random.int(5, 10))
+      .sort(Time.compare)
+      .forEach(time =>
+        employee.register({
+          time,
+          preferredLocations: Random.uniqueItems(Location.VALUES, Random.int(1, 3)),
+        })
+      );
 
     return employee;
   }
+}
+
+export interface SerializedEmployee {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly positions: Position[];
+  readonly registrations: Registration[];
 }
