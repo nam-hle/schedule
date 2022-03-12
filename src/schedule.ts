@@ -1,17 +1,17 @@
-import { Location, Position, Employee, Time, TimePosition } from "./entities";
+import { Store, Position, Employee, Time, TimePosition } from "./entities";
 import { Assignment } from "./entities/assignment";
 import { Random } from "./random";
 
-export type LocationRegistration = {
+export type StoreRegistration = {
   [position: string]: Record<Position.Kind, string[]>;
 };
 
 export class Schedule {
   private data: {
-    [time: string]: LocationRegistration;
+    [time: string]: StoreRegistration;
   } = {};
 
-  constructor(private registeredEmployees: Employee[], private locationInfos: Location[]) {}
+  constructor(private registeredEmployees: Employee[], private storeInfos: Store[]) {}
 
   private sortTimePositionByAvailability(): TimePosition[] {
     const timePositionAvailability: [TimePosition, number][] = [];
@@ -33,35 +33,35 @@ export class Schedule {
     const timePositions = this.sortTimePositionByAvailability();
     for (const timePosition of timePositions) {
       const employees = this.registeredEmployees.filter(employee => employee.isAvailable(timePosition));
-      const locations = this.locationInfos.filter(location => location.getRemainDemandAt(timePosition));
-      if (employees.length === 0 || locations.length === 0) {
+      const stores = this.storeInfos.filter(store => store.getRemainDemandAt(timePosition));
+      if (employees.length === 0 || stores.length === 0) {
         continue;
       }
 
       const employee = Random.item(employees);
-      const location = Random.item(locations);
-      Schedule.link(location, employee, timePosition);
+      const store = Random.item(stores);
+      Schedule.link(store, employee, timePosition);
     }
   }
 
-  static link(location: Location, employee: Employee, timePosition: TimePosition): void {
+  static link(store: Store, employee: Employee, timePosition: TimePosition): void {
     const assignment: Assignment = {
-      locationId: location.id,
+      storeId: store.id,
       employeeId: employee.id,
       ...timePosition,
     };
-    location.link(assignment);
+    store.link(assignment);
     employee.link(assignment);
   }
 
-  static unlink(location: Location, employee: Employee, timePosition: TimePosition): void {
+  static unlink(store: Store, employee: Employee, timePosition: TimePosition): void {
     const assignment: Assignment = {
-      locationId: location.id,
+      storeId: store.id,
       employeeId: employee.id,
       ...timePosition,
     };
 
-    location.unlink(assignment);
+    store.unlink(assignment);
     employee.unlink(assignment);
   }
 }

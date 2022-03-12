@@ -4,9 +4,9 @@ import { getBorderCharacters } from "table/dist/src/getBorderCharacters";
 import { Random } from "../random";
 
 import { Assignment } from "./assignment";
-import { Location } from "./location";
 import { Position } from "./position";
 import { Registration } from "./registration";
+import { Store } from "./store";
 import { Time } from "./time";
 import { TimePosition } from "./time-position";
 
@@ -64,7 +64,7 @@ export class Employee {
     ]
       .map(([key, value]) => `${(key as string).padEnd(10, " ")}: ${value}`)
       .join("\n");
-    const registrations = this.registrations.map(r => `${r.time} ${r.locationIds.join(", ")}`).join("\n");
+    const registrations = this.registrations.map(r => `${r.time} ${r.storeIds.join(", ")}`).join("\n");
     return table([[info, registrations]], { border: getBorderCharacters("norc") });
   }
 
@@ -101,7 +101,7 @@ export class Employee {
       .forEach(time =>
         employee.register({
           time,
-          locationIds: Random.uniqueItems(Location.SEED_IDS, Random.int(1, 3)),
+          storeIds: Random.uniqueItems(Store.SEED_IDS, Random.int(1, 3)),
         })
       );
 

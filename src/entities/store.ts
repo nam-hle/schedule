@@ -2,9 +2,9 @@ import { Assignment } from "./assignment";
 import { Demand } from "./demand";
 import { TimePosition } from "./time-position";
 
-export class Location {
+export class Store {
   static SEED_IDS = ["0", "1", "2"];
-  static SEED_ID_SIZE = Location.SEED_IDS.length;
+  static SEED_ID_SIZE = Store.SEED_IDS.length;
 
   private assignments: Assignment[] = [];
 
@@ -29,10 +29,10 @@ export class Location {
   link(assignment: Assignment): void {
     const index = this.getAssignmentIndex(assignment);
     if (index !== -1) {
-      throw new Error(`Assignment already linked to location ${this.id}`);
+      throw new Error(`Assignment already linked to store ${this.id}`);
     }
-    if (this.id !== assignment.locationId) {
-      throw new Error(`Can not assign assignment to location ${this.id}`);
+    if (this.id !== assignment.storeId) {
+      throw new Error(`Can not assign assignment to store ${this.id}`);
     }
 
     this.assignments.push(assignment);
@@ -41,7 +41,7 @@ export class Location {
   unlink(assignment: Assignment): void {
     const index = this.getAssignmentIndex(assignment);
     if (index === -1) {
-      throw new Error(`Assignment not linked to location ${this.id}`);
+      throw new Error(`Assignment not linked to store ${this.id}`);
     }
 
     this.assignments.splice(index, 1);
@@ -59,7 +59,7 @@ export class Location {
     return `${this.id}(${this.demands.map(Demand.toString).join(", ")})`;
   }
 
-  isEqual(other: Location): boolean {
+  isEqual(other: Store): boolean {
     return this.id === other.id;
   }
 }

@@ -1,6 +1,6 @@
 export * from "./day";
 export * from "./employee";
-export * from "./location";
+export * from "./store";
 export * from "./position";
 export * from "./shift";
 export * from "./time";
