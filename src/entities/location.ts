@@ -1,83 +1,65 @@
+import { Assignment } from "./assignment";
 import { Demand } from "./demand";
-import { Employee } from "./employee";
 import { TimePosition } from "./time-position";
 
-export enum LocationKind {
-  CTVT = "CTVT",
-  LHP = "LHP",
-  PCT = "PCT",
-}
-
-export interface EmployeeAssignment extends TimePosition {
-  readonly employees: Employee[];
-}
-export namespace EmployeeAssignment {
-  export function isMatched(assignment: EmployeeAssignment, timePosition: TimePosition): boolean {
-    return TimePosition.isEqual(assignment, timePosition);
-  }
-}
-
 export class Location {
-  static VALUES = Object.values(LocationKind);
-  static SIZE = Location.VALUES.length;
+  static SEED_IDS = ["0", "1", "2"];
+  static SEED_ID_SIZE = Location.SEED_IDS.length;
 
-  private assignments: EmployeeAssignment[] = [];
+  private assignments: Assignment[] = [];
 
-  constructor(public kind: LocationKind, public demands: Demand[] = []) {}
+  constructor(public id: string, public demands: Demand[] = []) {}
 
-  getAssignments(): EmployeeAssignment[] {
+  getAssignments(): Assignment[] {
     return this.assignments;
   }
 
-  getTotalDemand(timePosition: TimePosition): number {
+  getTotalDemandAt(timePosition: TimePosition): number {
     return this.demands.find(demand => Demand.isEqual(demand, timePosition))?.quantity ?? 0;
   }
 
-  getRemainDemand(timePosition: TimePosition): number {
-    return this.getTotalDemand(timePosition) - this.getTotalAssigned(timePosition);
+  getRemainDemandAt(timePosition: TimePosition): number {
+    return this.getTotalDemandAt(timePosition) - this.getTotalAssignedAt(timePosition);
   }
 
-  getTotalAssigned(timePosition: TimePosition): number {
-    return this.findAssignment(timePosition)?.employees.length ?? 0;
+  getTotalAssignedAt(timePosition: TimePosition): number {
+    return this.getAssignmentsAt(timePosition).length ?? 0;
   }
 
-  link(employee: Employee, timePosition: TimePosition): void {
-    let assignment = this.findAssignment(timePosition);
-    if (assignment === undefined) {
-      assignment = { ...timePosition, employees: [] };
-      this.assignments.push(assignment);
+  link(assignment: Assignment): void {
+    const index = this.getAssignmentIndex(assignment);
+    if (index !== -1) {
+      throw new Error(`Assignment already linked to location ${this.id}`);
     }
-
-    if (assignment.employees.find(e => e.isEqual(employee))) {
-      throw new Error("Employee is already assigned");
+    if (this.id !== assignment.locationId) {
+      throw new Error(`Can not assign assignment to location ${this.id}`);
     }
 
     this.assignments.push(assignment);
   }
 
-  unlink(employee: Employee, timePosition: TimePosition): void {
-    let assignment = this.findAssignment(timePosition);
-    if (assignment === undefined) {
-      throw new Error("Assignment not found");
+  unlink(assignment: Assignment): void {
+    const index = this.getAssignmentIndex(assignment);
+    if (index === -1) {
+      throw new Error(`Assignment not linked to location ${this.id}`);
     }
 
-    const employeeIndex = assignment.employees.findIndex(e => e.isEqual(employee));
-    if (employeeIndex === -1) {
-      throw new Error("Employee is not assigned");
-    }
-
-    assignment.employees.splice(employeeIndex, 1);
+    this.assignments.splice(index, 1);
   }
 
-  private findAssignment(timePosition: TimePosition): EmployeeAssignment | undefined {
-    return this.assignments.find(assignment => EmployeeAssignment.isMatched(assignment, timePosition));
+  getAssignmentIndex(assignment: Assignment): number {
+    return this.assignments.findIndex(a => Assignment.isEqual(a, assignment));
+  }
+
+  private getAssignmentsAt(timePosition: TimePosition): Assignment[] {
+    return this.assignments.filter(assignment => TimePosition.isEqual(assignment, timePosition));
   }
 
   toString(): string {
-    return `${this.kind}(${this.demands.map(Demand.toString).join(", ")})`;
+    return `${this.id}(${this.demands.map(Demand.toString).join(", ")})`;
   }
 
   isEqual(other: Location): boolean {
-    return this.kind === other.kind;
+    return this.id === other.id;
   }
 }

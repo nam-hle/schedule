@@ -1,4 +1,5 @@
 import { Location, Position, Employee, Time, TimePosition } from "./entities";
+import { Assignment } from "./entities/assignment";
 import { Random } from "./random";
 
 export type LocationRegistration = {
@@ -32,7 +33,7 @@ export class Schedule {
     const timePositions = this.sortTimePositionByAvailability();
     for (const timePosition of timePositions) {
       const employees = this.registeredEmployees.filter(employee => employee.isAvailable(timePosition));
-      const locations = this.locationInfos.filter(location => location.getRemainDemand(timePosition));
+      const locations = this.locationInfos.filter(location => location.getRemainDemandAt(timePosition));
       if (employees.length === 0 || locations.length === 0) {
         continue;
       }
@@ -44,12 +45,23 @@ export class Schedule {
   }
 
   static link(location: Location, employee: Employee, timePosition: TimePosition): void {
-    location.link(employee, timePosition);
-    employee.link(location, timePosition);
+    const assignment: Assignment = {
+      locationId: location.id,
+      employeeId: employee.id,
+      ...timePosition,
+    };
+    location.link(assignment);
+    employee.link(assignment);
   }
 
   static unlink(location: Location, employee: Employee, timePosition: TimePosition): void {
-    location.unlink(employee, timePosition);
-    employee.unlink(timePosition);
+    const assignment: Assignment = {
+      locationId: location.id,
+      employeeId: employee.id,
+      ...timePosition,
+    };
+
+    location.unlink(assignment);
+    employee.unlink(assignment);
   }
 }
